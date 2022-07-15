@@ -1,0 +1,21 @@
+{
+  "name": "oksana2lucky/warehouse-bundle",
+  "description": "Symfony Bundle for importing products and warehouse management",
+  "type": "symfony-bundle",
+  "require": {
+    "php": ">=8.0",
+    "symfony/framework-bundle": "^6.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Oksana2lucky\\WarehouseBundle\\": "src/"
+    }
+  },
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Oksana Pampushchenko",
+      "email": "oksana2lucky@gmail.com"
+    }
+  ]
+}
