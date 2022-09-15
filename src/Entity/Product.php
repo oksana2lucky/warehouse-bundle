@@ -15,7 +15,7 @@ class Product
     #[ORM\Column]
     private int $id;
 
-    #[ORM\Column(length: 12)]
+    #[ORM\Column(length: 12, unique: true)]
     private string $sku;
 
     #[ORM\Column(length: 255)]
