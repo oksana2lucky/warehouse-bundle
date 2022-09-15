@@ -9,6 +9,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Oksana2lucky\WarehouseBundle\Import\Importer;
 
 #[AsCommand(
     name: 'import-product',
@@ -19,6 +20,15 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 class ImportProductCommand extends Command
 {
     private SymfonyStyle $io;
+
+    private $importer;
+
+    public function __construct(Importer $importer)
+    {
+        parent::__construct();
+
+        $this->importer = $importer;
+    }
 
     protected function initialize(InputInterface $input, OutputInterface $output)
     {
@@ -56,7 +66,10 @@ class ImportProductCommand extends Command
             return $this->fail('The file '. $filePath. ' does not exist.');
         }
 
-        $result = ['success'];//$this->importer->run($this->createOptions($input));
+        $options = $this->createOptions($input);
+
+        $this->importer->run($options['filepath'], $options['no-db'] ?? false);
+        $result = $this->importer->getResult();
 
         if ($result) {
             return $this->success('Products have been imported successfully.', $result);

@@ -7,3 +7,13 @@ services:
   Oksana2lucky\WarehouseBundle\:
     resource: '../../'
     exclude: '../src/{DependencyInjection,Entity,Tests}'
+
+  oksana2lucky_warehouse.service_import_fileResource:
+    class: Oksana2lucky\WarehouseBundle\Import\FileResource
+    arguments:
+      - '@Oksana2lucky\WarehouseBundle\Import\Reader\CSVReader'
+
+  oksana2lucky_warehouse.service_import_importer:
+    class: Oksana2lucky\WarehouseBundle\Import\Importer
+    arguments:
+      - '@oksana2lucky_warehouse.service_import_fileResource'
