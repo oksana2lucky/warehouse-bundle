@@ -95,10 +95,17 @@ class ImportProductCommand extends Command
     {
         $this->io->info($message);
 
-        if (isset($result['skipped'])) {
-            foreach($result['skipped'] as $skippedItem) {
-                $this->io->block($skippedItem);
-            }
+        $skippedData = $this->importer->getDataHandler()->getFailData();
+
+        $this->io->block('All Items: '.
+            count($this->importer->getDataHandler()->getParsedData()));
+
+        $this->io->block('Items imported succesfully: '.
+            count($this->importer->getDataHandler()->getValidData()));
+
+        $this->io->block('Failed items ('. count($this->importer->getDataHandler()->getFailData()) .'): ');
+        foreach($skippedData as $skippedItem) {
+            $this->io->block(implode(', ', $skippedItem));
         }
 
         return Command::SUCCESS;

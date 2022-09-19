@@ -8,12 +8,25 @@ services:
     resource: '../../'
     exclude: '../src/{DependencyInjection,Entity,Tests}'
 
+  oksana2lucky_warehouse.repository_product:
+    class: Doctrine\ORM\EntityRepository
+    factory: [ "@doctrine.orm.entity_manager", getRepository ]
+    arguments:
+      - Oksana2lucky\WarehouseBundle\Entity\Product
+
   oksana2lucky_warehouse.service_import_fileResource:
     class: Oksana2lucky\WarehouseBundle\Import\FileResource
     arguments:
       - '@Oksana2lucky\WarehouseBundle\Import\Reader\CSVReader'
 
+  oksana2lucky_warehouse.service_import_data_handler:
+    class: Oksana2lucky\WarehouseBundle\Import\Data\Handler
+    arguments:
+      - '@oksana2lucky_warehouse.repository_product'
+      - '@Oksana2lucky\WarehouseBundle\Import\Data\Validator'
+
   oksana2lucky_warehouse.service_import_importer:
     class: Oksana2lucky\WarehouseBundle\Import\Importer
     arguments:
       - '@oksana2lucky_warehouse.service_import_fileResource'
+      - '@oksana2lucky_warehouse.service_import_data_handler'

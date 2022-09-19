@@ -1,6 +1,8 @@
 <?php
 namespace Oksana2lucky\WarehouseBundle\Import;
 
+use Oksana2lucky\WarehouseBundle\Import\Data\Handler;
+
 class Importer
 {
     private ?bool $noDb = false;
@@ -9,9 +11,15 @@ class Importer
 
     private array $result;
 
-    public function __construct(ResourceInterface $resource)
+    public function __construct(ResourceInterface $resource, Handler $dataHandler)
     {
         $this->resource = $resource;
+        $this->dataHandler = $dataHandler;
+    }
+
+    public function getDataHandler(): Handler
+    {
+        return $this->dataHandler;
     }
 
     private function init(mixed $source, ?bool $noDb = false)
@@ -26,11 +34,13 @@ class Importer
 
         $this->load();
 
-        if (!$noDb) {
+        $this->dataHandler->remap($this->resource->getData());
+        $this->dataHandler->validate();
+        $this->result = $this->dataHandler->getValidData();
+
+        if (!$this->isNoDBMode()) {
             $this->save();
         }
-
-        $this->result = $this->resource->getData();
     }
 
     private function load(): void
@@ -40,11 +50,16 @@ class Importer
 
     private function save(): void
     {
-
+        $this->dataHandler->save();
     }
 
     public function getResult()
     {
         return $this->result;
+    }
+
+    public function isNoDBMode(): bool
+    {
+        return $this->noDb == true;
     }
 }
