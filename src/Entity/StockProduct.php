@@ -1,4 +1,5 @@
 <?php
+
 namespace Oksana2lucky\WarehouseBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;

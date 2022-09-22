@@ -1,9 +1,17 @@
 <?php
+
 namespace Oksana2lucky\WarehouseBundle\Import;
 
 interface ResourceInterface
 {
+    /**
+     * @param string $filepath
+     * @return mixed
+     */
     public function init(string $filepath);
 
-    public function load();
+    /**
+     * @return void
+     */
+    public function load(): void;
 }

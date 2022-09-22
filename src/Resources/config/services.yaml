@@ -3,30 +3,47 @@ services:
   _defaults:
     autowire: true      # Automatically injects dependencies in your services.
     autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+    bind:
+      $entityManager: 'doctrine.orm.default_entity_manager'
 
   Oksana2lucky\WarehouseBundle\:
     resource: '../../'
     exclude: '../src/{DependencyInjection,Entity,Tests}'
 
+  Oksana2lucky\WarehouseBundle\Controller\:
+    resource: '../../Controller/'
+    tags: [ 'controller.service_arguments' ]
+
   oksana2lucky_warehouse.repository_product:
-    class: Doctrine\ORM\EntityRepository
+    class:   Doctrine\ORM\EntityRepository
     factory: [ "@doctrine.orm.entity_manager", getRepository ]
     arguments:
       - Oksana2lucky\WarehouseBundle\Entity\Product
+
+  Oksana2lucky\WarehouseBundle\Import\Data\AbstractHandler: '@oksana2lucky_warehouse.service_import_data_handler'
+  Oksana2lucky\WarehouseBundle\Import\Data\Validator: '@oksana2lucky_warehouse.service_import_data_validator'
 
   oksana2lucky_warehouse.service_import_fileResource:
     class: Oksana2lucky\WarehouseBundle\Import\FileResource
     arguments:
       - '@Oksana2lucky\WarehouseBundle\Import\Reader\CSVReader'
 
+  oksana2lucky_warehouse.service_import_data_validator:
+    class: Oksana2lucky\WarehouseBundle\Import\Data\ProductValidator
+
   oksana2lucky_warehouse.service_import_data_handler:
-    class: Oksana2lucky\WarehouseBundle\Import\Data\Handler
+    class: Oksana2lucky\WarehouseBundle\Import\Data\ProductHandler
     arguments:
-      - '@oksana2lucky_warehouse.repository_product'
-      - '@Oksana2lucky\WarehouseBundle\Import\Data\Validator'
+      - '@Doctrine\ORM\EntityManagerInterface'
+      - '@oksana2lucky_warehouse.service_import_data_validator'
 
   oksana2lucky_warehouse.service_import_importer:
     class: Oksana2lucky\WarehouseBundle\Import\Importer
     arguments:
       - '@oksana2lucky_warehouse.service_import_fileResource'
       - '@oksana2lucky_warehouse.service_import_data_handler'
+
+  oksana2lucky_warehouse.controller_test:
+    class: Oksana2lucky\WarehouseBundle\Controller\TestController
+    arguments:
+      - '@oksana2lucky_warehouse.service_import_importer'

@@ -1,0 +1,3 @@
+oksana2lucky_warehouse_routes:
+  resource: '../../Controller/'
+  type: annotation

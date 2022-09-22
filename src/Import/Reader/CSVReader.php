@@ -1,31 +1,32 @@
 <?php
+
 namespace Oksana2lucky\WarehouseBundle\Import\Reader;
-/**
- * CSVReader
- * Class to parse and iterate CSV files on the fly
- *
- * <code>
- *      $myCsv = new CSVReader("$path/csv.csv");
- *
- *      foreach ($myCsv as $data) {
- *          echo $data[2] ."\n";
- *      }
- * </code>
- *
- * @author      Mardix
- */
 
 class CSVReader implements \Iterator, ReaderInterface
 {
+    /**
+     * @var string
+     */
+    private string $delimiter;
 
-    private $delimiter;
+    /**
+     * @var string
+     */
+    private string $rowDelimiter;
 
-    private $rowDelimiter;
+    /**
+     * @var mixed|null
+     */
+    private mixed $fileHandle = null;
 
-    private $fileHandle = null;
-
+    /**
+     * @var int
+     */
     private $position = 0;
 
+    /**
+     * @var array
+     */
     private $data = array();
 
     /**
@@ -39,7 +40,14 @@ class CSVReader implements \Iterator, ReaderInterface
         }
     }
 
-    public function init(string $filename, string $delimiter = ",", string $rowDelimiter = "r")
+    /**
+     * @param string $filename
+     * @param string $delimiter
+     * @param string $rowDelimiter
+     * @return void
+     * @throws \Exception
+     */
+    public function init(string $filename, string $delimiter = ",", string $rowDelimiter = "r"): void
     {
         $this->delimiter = $delimiter;
 
@@ -49,18 +57,17 @@ class CSVReader implements \Iterator, ReaderInterface
 
         $this->fileHandle = fopen($filename, $this->rowDelimiter);
 
-        if ($this->fileHandle === FALSE) {
+        if ($this->fileHandle === false) {
             throw new \Exception("Unable to open file: {$filename}");
         } else {
             $this->parseLine();
         }
-
     }
 
     /**
      * Rewind iterator to the first element
      */
-    public function rewind()
+    public function rewind(): void
     {
         if ($this->fileHandle) {
             $this->position = 0;
@@ -72,9 +79,9 @@ class CSVReader implements \Iterator, ReaderInterface
     /**
      * Return the current row
      *
-     * @return Array
+     * @return array
      */
-    public function current()
+    public function current(): array
     {
         return $this->data;
     }
@@ -84,7 +91,7 @@ class CSVReader implements \Iterator, ReaderInterface
      *
      * @return int
      */
-    public function key()
+    public function key(): int
     {
         return $this->position;
     }
@@ -92,7 +99,7 @@ class CSVReader implements \Iterator, ReaderInterface
     /**
      * Move forward to the next element
      */
-    public function next()
+    public function next(): void
     {
         $this->position++;
         $this->parseLine();
@@ -103,7 +110,7 @@ class CSVReader implements \Iterator, ReaderInterface
      *
      * @return bool
      */
-    public function valid()
+    public function valid(): bool
     {
         return $this->data !== [];
     }
@@ -113,7 +120,7 @@ class CSVReader implements \Iterator, ReaderInterface
      *
      * @return void
      */
-    public function parseLine()
+    public function parseLine(): void
     {
         $this->data = array();
 

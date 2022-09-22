@@ -1,4 +1,5 @@
 <?php
+
 namespace Oksana2lucky\WarehouseBundle\Import\Data;
 
 use Symfony\Component\Validator\Constraints\GreaterThanOrEqual;
@@ -6,49 +7,47 @@ use Symfony\Component\Validator\Validation;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
-class Validator
+abstract class Validator
 {
+    /**
+     * @var ValidatorInterface
+     */
     protected ValidatorInterface $validator;
 
+    /**
+     * @var array
+     */
     protected array $constraints = [];
 
+    /**
+     * @var array
+     */
     protected array $data;
 
+    /**
+     * Constructor
+     */
     public function __construct()
     {
         $this->validator = Validation::createValidator();
     }
 
-    public function setData($data): self
+    /**
+     * @param array $data
+     * @return $this
+     */
+    public function setData(array $data): self
     {
         $this->data = $data;
         return $this;
     }
 
-    public function addDataRules(): self
-    {
-        $this->constraints[] = new Assert\Collection([
-            'sku' => new Assert\Required([
-                new Assert\Type('string'),
-                new Assert\NotBlank(),
-            ]),
-            'name' => new Assert\Required([
-                new Assert\Type('string'),
-                new Assert\NotBlank(),
-            ]),
-            'price' => new Assert\Required([
-                new Assert\Type(['int', 'float']),
-                new Assert\NotBlank(),
-                new Assert\PositiveOrZero(),
-            ]),
-        ]);
-
-        return $this;
-    }
-
+    /**
+     * @return bool
+     */
     public function validate(): bool
     {
-        foreach($this->constraints as $constraint) {
+        foreach ($this->constraints as $constraint) {
             $violations = $this->validator->validate($this->data, $constraint);
             $resultSuccess = $violations->count() === 0;
             if (!$resultSuccess) {

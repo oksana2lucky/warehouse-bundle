@@ -1,11 +1,13 @@
 <?php
+
 // src/Entity/Product.php
+
 namespace Oksana2lucky\WarehouseBundle\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Oksana2lucky\WarehouseBundle\Repository\ProductRepository;
+use Doctrine\Common\Collections\PersistentCollection;
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
 class Product
@@ -23,9 +25,6 @@ class Product
 
     #[ORM\Column]
     private float $price;
-
-    #[ORM\OneToMany(targetEntity: StockProduct::class, mappedBy: 'product')]
-    private StockProduct $stockProducts;
 
     public function getId(): ?int
     {
@@ -67,13 +66,4 @@ class Product
 
         return $this;
     }
-
-    /**
-     * @return Collection<int, Stock>
-     */
-    public function getStocks(): Collection
-    {
-        return $this->stocks;
-    }
-
 }

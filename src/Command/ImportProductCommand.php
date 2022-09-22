@@ -1,5 +1,5 @@
 <?php
-// src/Command/ImportProductCommand.php
+
 namespace Oksana2lucky\WarehouseBundle\Command;
 
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -19,10 +19,19 @@ use Oksana2lucky\WarehouseBundle\Import\Importer;
 )]
 class ImportProductCommand extends Command
 {
+    /**
+     * @var SymfonyStyle
+     */
     private SymfonyStyle $io;
 
+    /**
+     * @var Importer
+     */
     private $importer;
 
+    /**
+     * @param Importer $importer
+     */
     public function __construct(Importer $importer)
     {
         parent::__construct();
@@ -30,11 +39,19 @@ class ImportProductCommand extends Command
         $this->importer = $importer;
     }
 
+    /**
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     * @return void
+     */
     protected function initialize(InputInterface $input, OutputInterface $output)
     {
         $this->io = new SymfonyStyle($input, $output);
     }
 
+    /**
+     * @return void
+     */
     protected function configure(): void
     {
         $this->addArgument('filepath', InputArgument::REQUIRED, 'The file path to import.')
@@ -56,6 +73,11 @@ class ImportProductCommand extends Command
         );
     }
 
+    /**
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     * @return int
+     */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $this->io->title('Products Importer');
@@ -78,6 +100,10 @@ class ImportProductCommand extends Command
         }
     }
 
+    /**
+     * @param InputInterface $input
+     * @return array
+     */
     private function createOptions(InputInterface $input): array
     {
         if ($input->hasArgument('filepath')) {
@@ -91,7 +117,7 @@ class ImportProductCommand extends Command
         return array_filter($options);
     }
 
-    private function success(string $message, Array $result): int
+    private function success(string $message, array $result): int
     {
         $this->io->info($message);
 
@@ -104,13 +130,18 @@ class ImportProductCommand extends Command
             count($this->importer->getDataHandler()->getValidData()));
 
         $this->io->block('Failed items ('. count($this->importer->getDataHandler()->getFailData()) .'): ');
-        foreach($skippedData as $skippedItem) {
+        foreach ($skippedData as $skippedItem) {
             $this->io->block(implode(', ', $skippedItem));
         }
 
         return Command::SUCCESS;
     }
 
+    /**
+     * @param string $message
+     * @param string|null $errorMessage
+     * @return int
+     */
     private function fail(string $message, ?string $errorMessage = null): int
     {
         $this->io->error($message);

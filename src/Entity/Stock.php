@@ -1,5 +1,7 @@
 <?php
+
 // src/Entity/Stock.php
+
 namespace Oksana2lucky\WarehouseBundle\Entity;
 
 use Doctrine\Common\Collections\Collection;
@@ -52,5 +54,4 @@ class Stock
 
         return $this;
     }
-
 }
