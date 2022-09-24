@@ -7,7 +7,7 @@ namespace Oksana2lucky\WarehouseBundle\Entity;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Oksana2lucky\WarehouseBundle\Repository\ProductRepository;
-use Doctrine\Common\Collections\PersistentCollection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
 class Product
@@ -25,6 +25,14 @@ class Product
 
     #[ORM\Column]
     private float $price;
+
+    #[ORM\ManyToMany(targetEntity: Stock::class, mappedBy: 'product')]
+    #[ORM\JoinTable(name: 'stock_product')]
+    private $stocks;
+
+    public function __construct() {
+        $this->stocks = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -65,5 +73,13 @@ class Product
         $this->price = $price;
 
         return $this;
+    }
+
+    /**
+     * @return Stock[]|ArrayCollection
+     */
+    public function getStocks(): ArrayCollection|array
+    {
+        return $this->stocks;
     }
 }

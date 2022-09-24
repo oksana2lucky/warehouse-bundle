@@ -27,7 +27,7 @@ class ProductHandler extends AbstractHandler
             $product = $this->entityManager
                 ->getRepository(Product::class)->findOneBy(['sku' => $item['sku']]);
 
-            if ($product->getId() == null) {
+            if ($product == null) {
                 $product = new Product();
                 $product->setSku($item['sku']);
             }

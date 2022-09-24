@@ -14,7 +14,7 @@ use Oksana2lucky\WarehouseBundle\Import\Importer;
 #[AsCommand(
     name: 'import-product',
     description: 'Imports products list.',
-    aliases: ['oksana2lucky_warehouse:import-product'],
+    aliases: ['warehouse:import-product'],
     hidden: false
 )]
 class ImportProductCommand extends Command

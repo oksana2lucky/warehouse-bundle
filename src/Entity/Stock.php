@@ -23,9 +23,6 @@ class Stock
     #[ORM\Column(length: 500)]
     private string $address;
 
-    #[ORM\OneToMany(targetEntity: StockProduct::class, mappedBy: 'category')]
-    private StockProduct $stockProducts;
-
     public function getId(): ?int
     {
         return $this->id;
