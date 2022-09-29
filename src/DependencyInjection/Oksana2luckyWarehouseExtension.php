@@ -21,9 +21,4 @@ class Oksana2luckyWarehouseExtension extends Extension
         $loader->load('config.yaml');
         $loader->load('services.yaml');
     }
-
-    public function getAlias(): string
-    {
-        return 'oksana2lucky_warehouse';
-    }
 }

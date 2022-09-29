@@ -11,6 +11,11 @@
       "Oksana2lucky\\WarehouseBundle\\": "src/"
     }
   },
+  "autoload-dev": {
+    "psr-4": {
+      "Oksana2lucky\\WarehouseBundle\\Tests\\": "tests/"
+    }
+  },
   "license": "MIT",
   "authors": [
     {

@@ -3,8 +3,6 @@ services:
   _defaults:
     autowire: true      # Automatically injects dependencies in your services.
     autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
-    bind:
-      $entityManager: 'doctrine.orm.default_entity_manager'
 
   Oksana2lucky\WarehouseBundle\:
     resource: '../../'
@@ -42,8 +40,3 @@ services:
     arguments:
       - '@oksana2lucky_warehouse.service_import_fileResource'
       - '@oksana2lucky_warehouse.service_import_data_handler'
-
-  oksana2lucky_warehouse.controller_test:
-    class: Oksana2lucky\WarehouseBundle\Controller\TestController
-    arguments:
-      - '@oksana2lucky_warehouse.service_import_importer'

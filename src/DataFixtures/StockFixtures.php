@@ -20,7 +20,7 @@ class StockFixtures extends Fixture
             ['name' => 'HUB Logistics Finland', 'address' => 'Finland, Vanha Porvoontie 256b, ovi 3-5'],
         ];
 
-        foreach($stocks as $stockItem) {
+        foreach ($stocks as $stockItem) {
             $stock = new Stock();
             $stock->setName($stockItem['name']);
             $stock->setAddress($stockItem['address']);

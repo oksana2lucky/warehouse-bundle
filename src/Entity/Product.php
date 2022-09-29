@@ -30,7 +30,8 @@ class Product
     #[ORM\JoinTable(name: 'stock_product')]
     private $stocks;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->stocks = new ArrayCollection();
     }
 

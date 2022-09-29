@@ -1,0 +1,14 @@
+{% extends '@Oksana2luckyWarehouse/base.html.twig' %}
+
+{% block title %}Warehouse | Stock{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h2>Stock - {{ stock.name }}</h2>
+
+        <h4>Address:</h4>
+        <p>
+            {{ stock.address }}
+        </p>
+    </div>
+{% endblock %}

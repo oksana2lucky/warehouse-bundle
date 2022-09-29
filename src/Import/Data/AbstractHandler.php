@@ -76,24 +76,24 @@ abstract class AbstractHandler
     {
         $fields = array_map(
             function ($item) {
-            return strtolower($item);
-        },
+                return strtolower($item);
+            },
             array_shift($data)
         );
 
         $this->data['parsed'] = array_map(
             function ($item) use ($fields) {
-            $item = array_map(
-                function ($subItem) {
-                return is_numeric($subItem) ?
-                    (float)number_format((float)$subItem, 2, '.', '') :
-                    $subItem;
-            },
-                $item
-            );
+                $item = array_map(
+                    function ($subItem) {
+                        return is_numeric($subItem) ?
+                            (float)number_format((float)$subItem, 2, '.', '') :
+                            $subItem;
+                    },
+                    $item
+                );
 
-            return array_combine($fields, array_slice($item, 0, count($fields)));
-        },
+                return array_combine($fields, array_slice($item, 0, count($fields)));
+            },
             $data
         );
     }
