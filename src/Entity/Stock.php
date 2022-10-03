@@ -23,16 +23,35 @@ class Stock
     #[ORM\Column(length: 500)]
     private string $address;
 
+    #[ORM\OneToMany(mappedBy: 'stock', targetEntity: ProductStock::class)]
+    #[ORM\JoinTable(name: 'product_stock')]
+    private $productStocks;
+
+    public function __construct()
+    {
+        $this->stockProducts = new ArrayCollection();
+    }
+
+    /**
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * @return string|null
+     */
     public function getName(): ?string
     {
         return $this->name;
     }
 
+    /**
+     * @param string $name
+     * @return $this
+     */
     public function setName(string $name): self
     {
         $this->name = $name;
@@ -40,11 +59,18 @@ class Stock
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function getAddress(): ?string
     {
         return $this->address;
     }
 
+    /**
+     * @param string $address
+     * @return $this
+     */
     public function setAddress(string $address): self
     {
         $this->address = $address;

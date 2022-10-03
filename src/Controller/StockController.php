@@ -34,7 +34,7 @@ class StockController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'oksana2lucky_warehouse_stock_view')]
+    #[Route('/view/{id}', name: 'oksana2lucky_warehouse_stock_view')]
     public function view(int $id): Response
     {
         $stock = $this->entityManager->getRepository(Stock::class)->find($id);

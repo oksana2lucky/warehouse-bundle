@@ -10,5 +10,13 @@
             <li>Sku: {{ product.sku }}</li>
             <li>Price: {{ product.price }}</li>
         </ul>
+
+        <div>
+            {{ include('@Oksana2luckyWarehouse/product/stocks.html.twig') }}
+        </div>
+
+        <div>
+            {{ include('@Oksana2luckyWarehouse/product/add.html.twig') }}
+        </div>
     </div>
 {% endblock %}
