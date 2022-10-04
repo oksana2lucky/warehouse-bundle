@@ -28,10 +28,10 @@ class Product
 
     #[ORM\OneToMany(mappedBy: 'product', targetEntity: ProductStock::class)]
     #[ORM\JoinTable(name: 'product_stock')]
-    private $productStocks;
+    private PersistentCollection|ArrayCollection $productStocks;
 
     #[ORM\ManyToMany(targetEntity: Stock::class, inversedBy: 'products')]
-    private $stocks;
+    private PersistentCollection|ArrayCollection $stocks;
 
     public function __construct()
     {
@@ -109,6 +109,17 @@ class Product
      */
     public function getStocks(): PersistentCollection
     {
+        foreach($this->stocks as &$stock) {
+            $quantity = $this->productStocks
+                ->filter(function(ProductStock $productStock) use ($stock) {
+                    return $productStock->getStock() == $stock;
+                })
+                ?->first()
+                ?->getQuantity();
+
+            $stock->setQuantity($quantity);
+        }
+
         return $this->stocks;
     }
 

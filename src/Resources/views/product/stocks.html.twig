@@ -24,6 +24,7 @@
                         <td><a href="{{ path('oksana2lucky_warehouse_stock_view', {'id': stock.id}) }}">{{ stock.name }}</a></td>
                         <td>{{ stock.address }}</a></td>
                         <td><a href="{{ path('oksana2lucky_warehouse_product_removeStock', {'id': product.id, 'stockId': stock.id}) }}">Remove</a></td>
+                        <td>{{ stock.quantity }}</a></td>
                     </tr>
                 {% else %}
                     <tr>

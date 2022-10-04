@@ -27,6 +27,11 @@ class Stock
     #[ORM\JoinTable(name: 'product_stock')]
     private $productStocks;
 
+    /**
+     * @var int
+     */
+    private int $quantity;
+
     public function __construct()
     {
         $this->stockProducts = new ArrayCollection();
@@ -76,5 +81,22 @@ class Stock
         $this->address = $address;
 
         return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getQuantity(): int
+    {
+        return $this->quantity;
+    }
+
+    /**
+     * @param $quantity
+     * @return void
+     */
+    public function setQuantity($quantity): void
+    {
+        $this->quantity = $quantity;
     }
 }
