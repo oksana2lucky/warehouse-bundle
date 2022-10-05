@@ -55,10 +55,36 @@ blog:
 bin/console warehouse:import-product -filepath
 ```
 
-You can import them without saving to the database with option --no-db
+You can import products without saving to the database with option --no-db
 ```bash
 bin/console warehouse:import-product -filepath --no-db
 ```
+
+Example:
+```bash
+bin/console warehouse:import-product stock.csv
+```
+
+You're supposed to get result like this:
+```bash
+Products Importer
+=================
+
+
+[INFO] Products have been imported successfully.
+
+
+All Items: 29
+
+Items imported succesfully: 27
+
+Failed items (2):
+
+A0011, Misc Cables, error in export
+
+A0015, Bluray Player Excellent picture, $4.33
+```
+
 
 2) Update your DB to create necessary warehouse tables
 ```bash
@@ -68,7 +94,7 @@ bin/console doctrine:migrations:migrate
 
 3) Load fixtures (optional, --append is mandatory)
 ```bash
-bin/console hautelook:fixtures:load --append
+bin/console doctrine:fixtures:load --append
 ```
 
 Usage

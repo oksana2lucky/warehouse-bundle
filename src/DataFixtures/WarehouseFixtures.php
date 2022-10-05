@@ -21,7 +21,7 @@ class WarehouseFixtures extends Fixture implements DependentFixtureInterface
         $products = $objectManager->getRepository(Product::class)->findAll();
         $stocks = $objectManager->getRepository(Stock::class)->findAll();
 
-        for ($i = 0; $i < 50; $i++) {
+        for ($i = 0; $i < 70; $i++) {
             $stock = $stocks[array_rand($stocks)];
             $product = $products[array_rand($products)];
 

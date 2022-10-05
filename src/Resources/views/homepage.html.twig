@@ -1,0 +1,15 @@
+{% extends '@Oksana2luckyWarehouse/base.html.twig' %}
+
+{% block title %}Warehouse | Homepage{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1>Warehouse</h1>
+        <div>
+            <a href="{{ path('oksana2lucky_warehouse_product_index') }}">Products</a>
+        </div>
+        <div>
+            <a href="{{ path('oksana2lucky_warehouse_stock_index') }}">Stocks</a>
+        </div>
+    </div>
+{% endblock %}

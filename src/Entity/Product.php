@@ -105,9 +105,9 @@ class Product
     }
 
     /**
-     * @return PersistentCollection
+     * @return ArrayCollection
      */
-    public function getStocks(): PersistentCollection
+    public function getStocks(): ArrayCollection
     {
         foreach ($this->stocks as &$stock) {
             $quantity = $this->productStocks
@@ -120,7 +120,9 @@ class Product
             $stock->setQuantity($quantity);
         }
 
-        return $this->stocks;
+        return $this->stocks->filter(function (Stock $stock)  {
+            return $stock->getQuantity() > 0;
+        });
     }
 
     /**
