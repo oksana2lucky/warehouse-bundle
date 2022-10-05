@@ -2,15 +2,15 @@
 
 namespace Oksana2lucky\WarehouseBundle\Controller;
 
-use Oksana2lucky\WarehouseBundle\Entity\ProductStock;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\UnitOfWork;
 use Oksana2lucky\WarehouseBundle\Entity\Product;
 use Oksana2lucky\WarehouseBundle\Entity\Stock;
-use Oksana2lucky\WarehouseBundle\Entity\StockProduct1;
+use Oksana2lucky\WarehouseBundle\Entity\ProductStock;
 use Oksana2lucky\WarehouseBundle\Form\Type\AddToStockType;
 
 #[Route('/product')]

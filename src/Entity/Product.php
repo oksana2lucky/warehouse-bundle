@@ -109,9 +109,9 @@ class Product
      */
     public function getStocks(): PersistentCollection
     {
-        foreach($this->stocks as &$stock) {
+        foreach ($this->stocks as &$stock) {
             $quantity = $this->productStocks
-                ->filter(function(ProductStock $productStock) use ($stock) {
+                ->filter(function (ProductStock $productStock) use ($stock) {
                     return $productStock->getStock() == $stock;
                 })
                 ?->first()

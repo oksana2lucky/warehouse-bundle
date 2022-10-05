@@ -18,14 +18,14 @@ class ProductStock
     #[ORM\JoinColumn(name: 'product_id', referencedColumnName: 'id', nullable: false)]
     private Product $product;
 
-    #[ORM\Column(nullable: true, options: ['default' => 0])]
+    #[ORM\Column(nullable: true, options: ['unsigned' => true, 'default' => 0])]
     private int $quantity;
 
     /**
-     * @param $stock
-     * @param $product
+     * @param Stock $stock
+     * @param Product $product
      */
-    public function __construct($stock, $product)
+    public function __construct(Stock $stock, Product $product)
     {
         $this->stock = $stock;
         $this->product = $product;
