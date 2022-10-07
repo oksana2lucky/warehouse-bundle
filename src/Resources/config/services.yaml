@@ -40,3 +40,6 @@ services:
     arguments:
       - '@oksana2lucky_warehouse.service_import_fileResource'
       - '@oksana2lucky_warehouse.service_import_data_handler'
+
+  Oksana2lucky\WarehouseBundle\Provider\Provider:
+    class: Oksana2lucky\WarehouseBundle\Provider\WarehouseProvider
