@@ -11,5 +11,25 @@
         <div>
             <a href="{{ path('oksana2lucky_warehouse_stock_index') }}">Stocks</a>
         </div>
+        <div>
+            <h3>Data provider</h3>
+            <ul>
+                <li>
+                    <a href="{{ path('oksana2lucky_warehouse_provider_action', {'action': 'products-per-stock'}) }}">Products per Stock</a>
+                </li>
+                <li>
+                    <a href="{{ path('oksana2lucky_warehouse_provider_action', {'action': 'products-in-stocks'}) }}">Products in Stocks</a>
+                </li>
+                <li>
+                    <a href="{{ path('oksana2lucky_warehouse_provider_action', {'action': 'products-per-stock', 'quantity' : quantityInStock}) }}">Products in Stocks with quantity > {{ quantityInStock }} in a single stock</a>
+                </li>
+                <li>
+                    <a href="{{ path('oksana2lucky_warehouse_provider_action', {'action': 'products-in-stocks', 'quantity' : totalQuantity}) }}">Products in Stocks with total quantity > {{ totalQuantity }} in stocks</a>
+                </li>
+                <li>
+                    <a href="{{ path('oksana2lucky_warehouse_provider_action', {'action': 'products-out-of-stock'}) }}">Products out of Stock</a>
+                </li>
+            </ul>
+        </div>
     </div>
 {% endblock %}

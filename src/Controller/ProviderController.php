@@ -8,8 +8,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Oksana2lucky\WarehouseBundle\Provider\Provider;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/show/{action}', name: 'oksana2lucky_warehouse_show_action')]
-class WarehouseController extends AbstractController
+#[Route('/provide/{action}', name: 'oksana2lucky_warehouse_provider_action')]
+class ProviderController extends AbstractController
 {
     /**
      * @var Provider
@@ -24,9 +24,12 @@ class WarehouseController extends AbstractController
         $this->dataProvider = $dataProvider;
     }
 
-    public function __invoke(string $action): Response
+    public function __invoke(string $action, Request $request): Response
     {
-        $this->dataProvider->run($action);
+        $quantity = $request->get('quantity') ? intval($request->get('quantity')) : null;
+        $params = $quantity ? ['quantity' => $quantity] : [];
+
+        $this->dataProvider->run($action, $params);
 
         return $this->render('@Oksana2luckyWarehouse/warehouse.html.twig', [
             'title' => $this->dataProvider->getTitle(),

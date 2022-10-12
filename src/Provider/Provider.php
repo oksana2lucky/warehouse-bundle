@@ -41,13 +41,14 @@ class Provider implements ProviderInterface
 
     /**
      * @param string $action
+     * @param array $arguments
      * @return void
      */
-    public function run(string $action): void
+    public function run(string $action, array $arguments = []): void
     {
         $this->action = $action;
         $method = lcfirst(str_replace('-', '', ucwords($this->action, '-')));
-        $this->result = call_user_func(array($this, $method))?->getArrayResult();
+        $this->result = call_user_func([$this, $method], $arguments)?->getArrayResult();
         $this->fields = isset($this->result[0]) ? array_keys($this->result[0]) : [];
     }
 
