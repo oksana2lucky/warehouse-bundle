@@ -11,9 +11,8 @@ class ProductHandler extends AbstractHandler
      */
     public function validate(): void
     {
-        $this->validator
-            ->addDataTypeRules()
-            ->addValueRules();
+        $this->validator->addDataTypeRules();
+        $this->validator->addValueRules();
 
         parent::validate();
     }
